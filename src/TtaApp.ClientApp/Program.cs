@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.Extensions.Configuration;
+using TtaApp.ClientApp.Identity;
 
 namespace TtaApp.ClientApp
 {
@@ -13,7 +16,35 @@ namespace TtaApp.ClientApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddHttpClient("api")
+                .AddHttpMessageHandler(sp =>
+                {
+                    var handler = sp.GetService<AuthorizationMessageHandler>()
+                        .ConfigureHandler(
+                            authorizedUrls: new[]
+                            {
+                                "https://localhost:5002"
+                            },
+                            scopes: new[]
+                            {
+                                "weatherapi"
+                            });
+
+                    return handler;
+                });
+
+
+            builder.Services.AddScoped(sp => 
+                sp.GetService<IHttpClientFactory>().CreateClient("api")
+            );
+
+            builder.Services
+                .AddOidcAuthentication(options =>
+                {
+                    builder.Configuration.Bind("oidc", options.ProviderOptions);
+                    options.UserOptions.RoleClaim = "role";
+                })
+                .AddAccountClaimsPrincipalFactory<ArrayClaimsPrincipalFactory<RemoteUserAccount>>();
 
             await builder.Build().RunAsync();
         }
