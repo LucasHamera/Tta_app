@@ -3,9 +3,41 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{6B8109D5-BE69-4247-871F-AB5BCC16182B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{3C427CFF-5252-40DC-AB6B-3B3F2B66EC72}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{DE9B8E56-6B42-4889-974A-DE4128286CB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ABB1CACA-26A0-44DB-9EFF-EEAB4B686F86}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ClientApp", "ClientApp", "{6FC6C08C-3867-4E5D-8047-1076CAB2CD3B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TtaApp.ClientApp", "TtaApp.ClientApp\TtaApp.ClientApp.csproj", "{4296A199-5B0F-48AC-9CEB-D1CC9023C815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TtaApp.Api", "TtaApp.Api\TtaApp.Api.csproj", "{C581D77F-EC8A-4892-A2EA-8DF46AF728CC}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4296A199-5B0F-48AC-9CEB-D1CC9023C815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4296A199-5B0F-48AC-9CEB-D1CC9023C815}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4296A199-5B0F-48AC-9CEB-D1CC9023C815}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4296A199-5B0F-48AC-9CEB-D1CC9023C815}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C581D77F-EC8A-4892-A2EA-8DF46AF728CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C581D77F-EC8A-4892-A2EA-8DF46AF728CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C581D77F-EC8A-4892-A2EA-8DF46AF728CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C581D77F-EC8A-4892-A2EA-8DF46AF728CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4296A199-5B0F-48AC-9CEB-D1CC9023C815} = {6FC6C08C-3867-4E5D-8047-1076CAB2CD3B}
+		{C581D77F-EC8A-4892-A2EA-8DF46AF728CC} = {6B8109D5-BE69-4247-871F-AB5BCC16182B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2268C9F3-BE1C-474D-80D6-23E58934F0CC}
