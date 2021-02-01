@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey.CQRS.Commands" Version="0.5.422" />
+    <PackageReference Include="Convey.CQRS.Events" Version="0.5.422" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.5.422" />
+    <PackageReference Include="Convey.WebApi" Version="0.5.422" />
+  </ItemGroup>
+
+</Project>

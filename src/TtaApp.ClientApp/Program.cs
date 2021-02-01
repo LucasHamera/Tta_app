@@ -16,36 +16,27 @@ namespace TtaApp.ClientApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddHttpClient("api")
-                .AddHttpMessageHandler(sp =>
-                {
-                    var handler = sp.GetService<AuthorizationMessageHandler>()
-                        .ConfigureHandler(
-                            authorizedUrls: new[]
-                            {
-                                "https://localhost:5002"
-                            },
-                            scopes: new[]
-                            {
-                                "weatherapi"
-                            });
-
-                    return handler;
-                });
 
 
-            builder.Services.AddScoped(sp => 
-                sp.GetService<IHttpClientFactory>().CreateClient("api")
-            );
+            builder
+                .Services
+                .AddScoped(_ => 
+                    new HttpClient
+                    {
+                        BaseAddress = new Uri("https://localhost:5000/")
+                    }
+                );
 
-            builder.Services
+
+            builder
+                .Services
                 .AddOidcAuthentication(options =>
                 {
-                    builder.Configuration.Bind("oidc", options.ProviderOptions);
-                    options.UserOptions.RoleClaim = "role";
-                })
-                .AddAccountClaimsPrincipalFactory<ArrayClaimsPrincipalFactory<RemoteUserAccount>>();
-
+                    options.ProviderOptions.Authority = "https://localhost:5002"; //The IdentityServer URL 
+                    options.ProviderOptions.ClientId = "client-app"; // The client ID
+                    options.ProviderOptions.ResponseType = "code";
+                });
+            
             await builder.Build().RunAsync();
         }
     }
