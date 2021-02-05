@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\TtaApp.Todo.Infrastructure\TtaApp.Todo.Infrastructure.csproj" />
     <ProjectReference Include="..\TtaApp.Todo.Application\TtaApp.Todo.Application.csproj" />
   </ItemGroup>
 

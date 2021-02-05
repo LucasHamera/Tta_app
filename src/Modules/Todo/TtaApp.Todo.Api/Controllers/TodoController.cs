@@ -40,6 +40,14 @@ namespace TtaApp.Todo.Api.Controllers
         }
 
         [HttpPost("[action]")]
+        public async Task ChangeName(
+            ChangeTodoName command
+        )
+        {
+            await _commandDispatcher.SendAsync(command);
+        }
+
+        [HttpPost("[action]")]
         public async Task ChangeStatus(
             ChangeTodoStatus command
         )

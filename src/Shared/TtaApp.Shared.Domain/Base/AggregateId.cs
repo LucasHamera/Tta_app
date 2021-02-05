@@ -1,4 +1,5 @@
 using System;
+using TtaApp.Shared.Domain.Exceptions;
 
 namespace TtaApp.Shared.Domain.Base
 {
@@ -6,12 +7,9 @@ namespace TtaApp.Shared.Domain.Base
     {
         public Guid Value { get; }
 
-        public AggregateId()
-        {
-            Value = Guid.NewGuid();
-        }
-
-        public AggregateId(Guid value)
+        public AggregateId(
+            Guid value
+        )
         {
             if (value == Guid.Empty)
             {
@@ -21,16 +19,21 @@ namespace TtaApp.Shared.Domain.Base
             Value = value;
         }
 
-        public bool Equals(AggregateId other)
+        public bool Equals(
+            AggregateId other
+        )
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other is null)
+                return false;
             return ReferenceEquals(this, other) || Value.Equals(other.Value);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
+            if (obj is null)
+                return false;
+            if (this == obj)
+                return true;
             return obj.GetType() == GetType() && Equals((AggregateId) obj);
         }
 
@@ -43,7 +46,7 @@ namespace TtaApp.Shared.Domain.Base
             => id.Value;
 
         public static implicit operator AggregateId(Guid id)
-            => new AggregateId(id);
+            => new(id);
         
         public override string ToString() => Value.ToString();
     }

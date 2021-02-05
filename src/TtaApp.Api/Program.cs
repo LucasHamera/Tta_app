@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using TtaApp.Shared.Application;
 using TtaApp.Shared.Infrastructure;
-using static Microsoft.AspNetCore.Hosting.EnvironmentName;
+using TtaApp.Todo.Api;
 
 namespace TtaApp.Api
 {
@@ -28,6 +28,7 @@ namespace TtaApp.Api
 
                     services
                         .AddConvey()
+                        .AddTodoModule()
                         .AddSharedApplication()
                         .AddSharedInfrastructure()
                         .AddSwaggerDocs()
@@ -49,9 +50,10 @@ namespace TtaApp.Api
                 .Configure((webHostBuilder, app) =>
                 {
                     var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                    var isDevelopment = environment == Development;
+                    var isDevelopment = environment == "Development";
 
-                    app.UseConvey()
+                    app
+                        .UseConvey()
                         .UseRabbitMq();
 
                     if (isDevelopment)
@@ -62,6 +64,11 @@ namespace TtaApp.Api
                             .UseWebSockets()
                             .UseSwaggerDocs();
                     }
+
+                    app
+                        .UseSharedApplication()
+                        .UseSharedInfrastructure()
+                        .UseTodoModule();
 
                     app.UseCors(config =>
                     {

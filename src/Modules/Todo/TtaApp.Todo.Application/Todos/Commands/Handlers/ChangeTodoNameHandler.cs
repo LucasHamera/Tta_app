@@ -3,16 +3,17 @@ using Convey.CQRS.Commands;
 using TtaApp.Todo.Application.Services;
 using TtaApp.Todo.Application.Todos.Exceptions;
 using TtaApp.Todo.Domain.Todos.Services;
+using TtaApp.Todo.Domain.Todos.ValueObjects;
 
 namespace TtaApp.Todo.Application.Todos.Commands.Handlers
 {
-    internal class DeleteTodoHandler: ICommandHandler<DeleteTodo>
+    internal class ChangeTodoNameHandler : ICommandHandler<ChangeTodoName>
     {
         private readonly ITodoRepository _todoRepository;
         private readonly ITransactionCommitter _transactionCommitter;
 
-        public DeleteTodoHandler(
-            ITodoRepository todoRepository,
+        public ChangeTodoNameHandler(
+            ITodoRepository todoRepository, 
             ITransactionCommitter transactionCommitter
         )
         {
@@ -21,7 +22,7 @@ namespace TtaApp.Todo.Application.Todos.Commands.Handlers
         }
 
         public async Task HandleAsync(
-            DeleteTodo command
+            ChangeTodoName command
         )
         {
             var todo = await _todoRepository
@@ -30,9 +31,10 @@ namespace TtaApp.Todo.Application.Todos.Commands.Handlers
             if (!todo.HasValue)
                 throw new TodoNotFoundException(command.Id);
 
+            var newTodoName = new TodoName(command.Name);
             todo
                 .Value
-                .Delete();
+                .ChangeName(newTodoName);
 
             await _transactionCommitter
                 .CommitWithEventsAsync(todo.Value.Events);

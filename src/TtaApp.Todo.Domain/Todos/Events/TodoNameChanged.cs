@@ -2,9 +2,9 @@
 
 namespace TtaApp.Todo.Domain.Todos.Events
 {
-    public class TodoStatusChanged: IDomainEvent
+    public class TodoNameChanged: IDomainEvent
     {
-        public TodoStatusChanged(
+        public TodoNameChanged(
             Todo todo
         )
         {

@@ -7,21 +7,24 @@ namespace TtaApp.Todo.Domain.Todos
 {
     public class Todo: AggregateRoot
     {
-        private bool _done;
-        private string _name;
-
-        private Todo()
-        {
-
-        }
-
         private Todo(
             Guid id,
             TodoName name
+        ) : this(id, name, false, 0)
+        {
+        }
+
+        public Todo(
+            AggregateId id,
+            TodoName name,
+            bool done, 
+            int version
         )
         {
             Id = id;
-            _name = name.Value;
+            Name = name;
+            Done = done;
+            Version = version;
         }
 
         public static Todo Create(
@@ -37,13 +40,35 @@ namespace TtaApp.Todo.Domain.Todos
             return todo;
         }
 
+        public bool Done
+        {
+            get;
+            private set;
+        }
+
+        public TodoName Name
+        {
+            get;
+            private set;
+        }
+
         public void ChangeStatus(
             bool done
         )
         {
-            _done = done;
+            Done = done;
             AddEvent(
-                new TodoStatusChanged(Id, _done)
+                new TodoStatusChanged(this)
+            );
+        }
+
+        public void ChangeName(
+            TodoName newName
+        )
+        {
+            Name = newName;
+            AddEvent(
+                new TodoNameChanged(this)
             );
         }
 

@@ -2,6 +2,11 @@
 {
     public class TodoName
     {
+        private TodoName()
+        {
+
+        }
+
         public TodoName(
             string name
         )

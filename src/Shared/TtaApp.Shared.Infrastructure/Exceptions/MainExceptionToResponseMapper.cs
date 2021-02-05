@@ -19,7 +19,7 @@ namespace TtaApp.Shared.Infrastructure.Exceptions
             );
         }
 
-        private object MapException(
+        private static object MapException(
             Exception exception
         )
         {
