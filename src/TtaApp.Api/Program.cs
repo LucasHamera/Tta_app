@@ -1,9 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using Convey;
 using Convey.Docs.Swagger;
 using Convey.Logging;
-using Convey.MessageBrokers.RabbitMQ;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -32,7 +30,6 @@ namespace TtaApp.Api
                         .AddSharedApplication()
                         .AddSharedInfrastructure()
                         .AddSwaggerDocs()
-                        .AddRabbitMq()
                         .Build();
 
                     services
@@ -47,48 +44,35 @@ namespace TtaApp.Api
                             };
                         });
                 })
-                .Configure((webHostBuilder, app) =>
+                .Configure((_, app) =>
                 {
-                    var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-                    var isDevelopment = environment == "Development";
-
                     app
                         .UseConvey()
-                        .UseRabbitMq();
-
-                    if (isDevelopment)
-                    {
-                        app.UseDeveloperExceptionPage();
-
-                        app
-                            .UseWebSockets()
-                            .UseSwaggerDocs();
-                    }
-
-                    app
+                        .UseWhenDebugEnvironment(
+                            () =>
+                            {
+                                app
+                                    .UseDeveloperExceptionPage()
+                                    .UseWebSockets()
+                                    .UseSwaggerDocs();
+                            }
+                        )
                         .UseSharedApplication()
                         .UseSharedInfrastructure()
-                        .UseTodoModule();
-
-                    app.UseCors(config =>
-                    {
-                        config.AllowAnyOrigin();
-                        config.AllowAnyMethod();
-                        config.AllowAnyHeader();
-                    });
-
-                    app.UseHttpsRedirection();
-
-                    app.UseRouting();
-
-                    app.UseAuthorization();
-
-                    app.UseAuthorization();
-
-                    app.UseEndpoints(endpoints =>
-                    {
-                        endpoints.MapControllers();
-                    });
+                        .UseTodoModule().UseCors(config =>
+                        {
+                            config.AllowAnyOrigin();
+                            config.AllowAnyMethod();
+                            config.AllowAnyHeader();
+                        })
+                        .UseHttpsRedirection()
+                        .UseRouting()
+                        .UseAuthorization()
+                        .UseAuthorization()
+                        .UseEndpoints(endpoints =>
+                        {
+                            endpoints.MapControllers();
+                        });
                 })
                 .UseLogging()
                 .Build()

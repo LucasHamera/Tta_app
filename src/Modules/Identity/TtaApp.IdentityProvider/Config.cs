@@ -21,7 +21,7 @@ namespace TtaApp.IdentityProvider
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("weatherapi"),
+                new ApiScope("ttaapp"),
             };
 
         public static IEnumerable<IdentityResource> Ids =>
@@ -40,8 +40,8 @@ namespace TtaApp.IdentityProvider
             {
                 // the api requires the role claim
                 new ApiResource(
-                    "weatherapi",
-                    "The Weather API",
+                    "ttaapp",
+                    "TtaApp",
                     new[]
                     {
                         JwtClaimTypes.Role
@@ -66,8 +66,8 @@ namespace TtaApp.IdentityProvider
                     {
                         "openid", 
                         "profile", 
-                        "email", 
-                        "weatherapi"
+                        "email",
+                        "ttaapp"
                     },
                     RedirectUris =
                     {
@@ -75,7 +75,7 @@ namespace TtaApp.IdentityProvider
                     },
                     PostLogoutRedirectUris =
                     {
-                        "https://localhost:44391/"
+                        "https://localhost:44391/authentication/logout-callback"
                     },
                     Enabled = true
                 },

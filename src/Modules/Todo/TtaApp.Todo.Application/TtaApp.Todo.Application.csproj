@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Shared\TtaApp.Shared.Application\TtaApp.Shared.Application.csproj" />
-    <ProjectReference Include="..\..\..\TtaApp.Todo.Domain\TtaApp.Todo.Domain.csproj" />
+    <ProjectReference Include="..\TtaApp.Todo.Domain\TtaApp.Todo.Domain.csproj" />
   </ItemGroup>
 
 </Project>

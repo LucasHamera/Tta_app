@@ -11,8 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Modules\Todo\TtaApp.Todo.Application\TtaApp.Todo.Application.csproj" />
-    <ProjectReference Include="..\TtaApp.Todo.Domain\TtaApp.Todo.Domain.csproj" />
+    <ProjectReference Include="..\TtaApp.Todo.Application\TtaApp.Todo.Application.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TtaApp.Shared.Domain.Base
 {
@@ -22,12 +23,14 @@ namespace TtaApp.Shared.Domain.Base
             protected set;
         }
 
-        protected void AddEvent(IDomainEvent @event)
+        protected void AddEvent(
+            IDomainEvent @event
+        )
         {
+            if (!_events.Any())
+                Version++;
+
             _events.Add(@event);
         }
-
-        public void ClearEvents() 
-            => _events.Clear();
     }
 }

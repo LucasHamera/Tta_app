@@ -16,8 +16,6 @@ namespace TtaApp.ClientApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-
-
             builder
                 .Services
                 .AddScoped(_ => 
@@ -25,11 +23,7 @@ namespace TtaApp.ClientApp
                     {
                         BaseAddress = new Uri("https://localhost:5000/")
                     }
-                );
-
-
-            builder
-                .Services
+                )
                 .AddOidcAuthentication(options =>
                 {
                     options.ProviderOptions.Authority = "https://localhost:5002"; //The IdentityServer URL 
@@ -37,7 +31,9 @@ namespace TtaApp.ClientApp
                     options.ProviderOptions.ResponseType = "code";
                 });
             
-            await builder.Build().RunAsync();
+            await builder
+                .Build()
+                .RunAsync();
         }
     }
 }

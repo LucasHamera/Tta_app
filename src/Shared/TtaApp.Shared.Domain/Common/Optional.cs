@@ -23,7 +23,7 @@ namespace TtaApp.Shared.Domain.Common
             get
             {
                 if (!HasValue)
-                    throw new InvalidOperationException("No value present");
+                    throw new InvalidOperationException("No value present.");
                 return _value;
             }
         }
@@ -38,21 +38,20 @@ namespace TtaApp.Shared.Domain.Common
             return new(value, value is not null);
         }
 
-        public bool Equals(Optional<T> other)
+        public bool Equals(
+            Optional<T> other
+        )
         {
             return EqualityComparer<T>.Default.Equals(_value, other._value) 
                    && HasValue == other.HasValue;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(
+            object obj
+        )
         {
             return obj is Optional<T> other 
                    && Equals(other);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(_value, HasValue);
         }
 
         public static implicit operator Optional<T>(T value) 

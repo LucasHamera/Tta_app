@@ -7,7 +7,7 @@ namespace TtaApp.Todo.Domain.Todos.Events
     public class TodoCreated: IDomainEvent
     {
         public TodoCreated(
-            Guid id, 
+            AggregateId id, 
             TodoName name
         )
         {
@@ -15,7 +15,7 @@ namespace TtaApp.Todo.Domain.Todos.Events
             Name = name;
         }
 
-        public Guid Id
+        public AggregateId Id
         {
             get;
         }

@@ -5,18 +5,23 @@ namespace TtaApp.Shared.Domain.Base
 {
     public class AggregateId : IEquatable<AggregateId>
     {
-        public Guid Value { get; }
-
+        public AggregateId() 
+            : this(Guid.NewGuid())
+        {
+        }
         public AggregateId(
             Guid value
         )
         {
             if (value == Guid.Empty)
-            {
                 throw new InvalidAggregateIdException(value);
-            }
 
             Value = value;
+        }
+
+        public Guid Value
+        {
+            get;
         }
 
         public bool Equals(
@@ -47,7 +52,5 @@ namespace TtaApp.Shared.Domain.Base
 
         public static implicit operator AggregateId(Guid id)
             => new(id);
-        
-        public override string ToString() => Value.ToString();
     }
 }

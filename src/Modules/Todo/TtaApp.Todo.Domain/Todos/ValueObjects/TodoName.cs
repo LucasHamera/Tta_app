@@ -1,16 +1,16 @@
-﻿namespace TtaApp.Todo.Domain.Todos.ValueObjects
+﻿using TtaApp.Todo.Domain.Todos.Exceptions;
+
+namespace TtaApp.Todo.Domain.Todos.ValueObjects
 {
     public class TodoName
     {
-        private TodoName()
-        {
-
-        }
-
         public TodoName(
             string name
         )
         {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new EmptyTodoNameException();
+
             Value = name;
         }
 
