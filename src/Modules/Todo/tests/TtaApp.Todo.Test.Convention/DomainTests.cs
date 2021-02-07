@@ -12,7 +12,7 @@ namespace TtaApp.Todo.Test.Convention
     public class DomainTests
     {
         [Fact]
-        public void DomainEvent_Should_Be_Immutable()
+        public void DomainEventShouldBeImmutable()
         {
             var types = Types.InAssembly(DomainAssembly)
                 .That()

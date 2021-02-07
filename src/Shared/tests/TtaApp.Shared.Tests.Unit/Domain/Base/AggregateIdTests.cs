@@ -52,7 +52,7 @@ namespace TtaApp.Shared.Tests.Unit.Domain.Base
         }
 
         [Fact]
-        public void EqualsSameReferenceShouldResultTrue()
+        public void GivenEEqualsSameReferenceShouldResultTrue()
         {
             // Arrange
             var aggregateId = new AggregateId();
@@ -65,7 +65,7 @@ namespace TtaApp.Shared.Tests.Unit.Domain.Base
         }
 
         [Fact]
-        public void EqualsDifferentReferenceShouldResultTrue()
+        public void GivenEqualsDifferentReferenceShouldResultTrue()
         {
             // Arrange
             var first = new AggregateId();
@@ -79,7 +79,7 @@ namespace TtaApp.Shared.Tests.Unit.Domain.Base
         }
 
         [Fact]
-        public void EqualsNullShouldResultFalse()
+        public void GivenNullEqualsValidAggregateIdShouldResultFalse()
         {
             // Arrange
             var aggregateId = new AggregateId();
