@@ -49,30 +49,7 @@ namespace TtaApp.Todo.Tests.Integration.Application.Todo.Command
                 new TodoDTO(todo.Id, todo.Name.Value, command.Done)
             );
         }
-
-        [Fact]
-        public async Task GivenEmptyNameShouldThrowEmptyTodoNameException()
-        {
-            // Arrange
-            var todo = await AddTestTodo(
-                Guid.Parse("BE167324-B1DF-4C63-861F-E7A590C769D7")
-            );
-            var command = new ChangeTodoStatus(
-                todo.Id,
-                true
-            );
-
-            // Act
-            var exception = await Record.ExceptionAsync(
-                async () => await ActCommand(command)
-            );
-
-            // Assert
-            exception.Should().NotBeNull();
-            var emptyTodoName = exception as EmptyTodoNameException;
-            emptyTodoName.Should().NotBeNull();
-        }
-
+        
         [Fact]
         public async Task GivenNotExistsTodoShouldThrowTodoNotFoundException()
         {
