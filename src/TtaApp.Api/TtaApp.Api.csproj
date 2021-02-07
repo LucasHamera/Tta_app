@@ -21,7 +21,6 @@
     <ProjectReference Include="..\Shared\TtaApp.Shared.Application\TtaApp.Shared.Application.csproj" />
     <ProjectReference Include="..\Shared\TtaApp.Shared.Domain\TtaApp.Shared.Domain.csproj" />
     <ProjectReference Include="..\Shared\TtaApp.Shared.Infrastructure\TtaApp.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\TtaApp.ClientApp\TtaApp.ClientApp.csproj" />
   </ItemGroup>
 
 </Project>

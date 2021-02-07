@@ -17,7 +17,12 @@ namespace TtaApp.Api
     public class Program
     {
         public static async Task Main(string[] args)
-            => await WebHost.CreateDefaultBuilder(args)
+            => await CreateWebHostBuilder(args)
+                .Build()
+                .RunAsync();
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+            => WebHost.CreateDefaultBuilder(args)
                 .ConfigureServices(services =>
                 {
                     services
@@ -59,7 +64,8 @@ namespace TtaApp.Api
                         )
                         .UseSharedApplication()
                         .UseSharedInfrastructure()
-                        .UseTodoModule().UseCors(config =>
+                        .UseTodoModule()
+                        .UseCors(config =>
                         {
                             config.AllowAnyOrigin();
                             config.AllowAnyMethod();
@@ -74,9 +80,7 @@ namespace TtaApp.Api
                             endpoints.MapControllers();
                         });
                 })
-                .UseLogging()
-                .Build()
-                .RunAsync();
+                .UseLogging();
 
     }
 }
