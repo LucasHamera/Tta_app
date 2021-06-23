@@ -1,0 +1,44 @@
+@url = https://localhost:5000
+
+###
+GET {{url}}/Todo
+
+
+@todoId = db639edf-d637-48d9-8ded-549dcedf71d7
+@todoName = totoTest
+###
+POST {{url}}/Todo/Add
+Content-Type: application/json
+
+{
+    "id": "{{todoId}}",
+    "name": "{{todoName}}"
+}
+
+@newTodoName = newName
+###
+POST {{url}}/Todo/ChangeName
+Content-Type: application/json
+
+{
+    "id": "{{todoId}}",
+    "name": "{{newTodoName}}"
+}
+
+@newTodoStatus = true
+###
+POST {{url}}/Todo/ChangeStatus
+Content-Type: application/json
+
+{
+    "id": "{{todoId}}",
+    "done": "{{newTodoStatus}}"
+}
+
+###
+POST {{url}}/Todo/Delete
+Content-Type: application/json
+
+{
+    "id": "{{todoId}}",
+}

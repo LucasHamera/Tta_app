@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Convey" Version="0.5.422" />
+    <PackageReference Include="Convey.CQRS.Queries" Version="0.5.422" />
+    <PackageReference Include="Convey.Persistence.MongoDB" Version="0.5.422" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TtaApp.Todo.Application\TtaApp.Todo.Application.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -3,6 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.Extensions.Configuration;
+using TtaApp.ClientApp.Identity;
 
 namespace TtaApp.ClientApp
 {
@@ -13,9 +16,24 @@ namespace TtaApp.ClientApp
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("#app");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
-            await builder.Build().RunAsync();
+            builder
+                .Services
+                .AddScoped(_ => 
+                    new HttpClient
+                    {
+                        BaseAddress = new Uri("https://localhost:5000/")
+                    }
+                )
+                .AddOidcAuthentication(options =>
+                {
+                    options.ProviderOptions.Authority = "https://localhost:5002"; //The IdentityServer URL 
+                    options.ProviderOptions.ClientId = "client-app"; // The client ID
+                    options.ProviderOptions.ResponseType = "code";
+                });
+            
+            await builder
+                .Build()
+                .RunAsync();
         }
     }
 }
